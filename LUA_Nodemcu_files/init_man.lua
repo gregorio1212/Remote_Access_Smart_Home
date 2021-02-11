@@ -1,7 +1,4 @@
 --[[
-init_man.lua
-by Patrick Lloyd
-
 Actual init file, but named something other than init.lua in order to 
 manually test and debug initialization code.
 --]]
