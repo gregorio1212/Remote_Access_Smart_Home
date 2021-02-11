@@ -1,0 +1,4 @@
+1613053083: mosquitto version 1.5.7 starting
+1613053083: Config loaded from /etc/mosquitto/mosquitto.conf.
+1613053083: Opening ipv4 listen socket on port 1883.
+1613053083: Error: Address already in use
