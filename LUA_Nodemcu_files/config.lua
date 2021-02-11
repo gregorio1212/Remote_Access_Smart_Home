@@ -1,10 +1,3 @@
---[[
-config.lua
-by Patrick Lloyd
-
-Global variable configuration file for better portability
-Change for your particular setup. This assumes default Mosquitto config
---]]
 
 -- Pin Declarations
 PIN_RED = 1
