@@ -1,18 +1,4 @@
 #!/usr/bin/env python3
-
-'''
-Simple MQTT PUB/SUB terminal client example
-by Patrick Lloyd
-
-This simple MQTT client allows the user to send messages to an ESP8266
-running NodeMCU in order to interact with an RGB LED. The client ubscribes
-to the "/mcu/#" topic and prints all messages from the "/mcu/rgbled_status/"
-topic.
-
-Valid inputs are only the numbers 0-3 but this can be expanded to accomodate
-more complex projects.
-'''
-
 # Library to connect with the broker
 # See http://www.eclipse.org/paho/ for more info
 import paho.mqtt.client as mqtt
