@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Laboratory Smarthome Access</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+
+
+<body style="background: #313635">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-2">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">Design Laboratory Smarthome Access</a>
+    </nav>
+    <div class="container-fluid">
+        <div id="status" class="alert">
+            <small>Loading...</small>
+        </div>
+        <div id="welcome" class="alert alert-info">
+            Hello world!
+        </div>
+        <h5><div class="card mb-3" style="color: white; background: #333c42">
+            <div class="row">
+                <div class="col-6 col-md-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Device 1
+                        </div>
+                        <h4><span id="label1" class="badge w-100">Unknown</span></h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Device 2
+                        </div>
+                        <h4><span id="label2" class="badge w-100">Unknown</span></h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Device 3
+                        </div>
+                        <h4><span id="label3" class="badge w-100">Unknown</span></h4>
+                    </div>
+                </div>
+
+                <div class="col-6 col-md-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Led Mode
+                        </div>
+                        <h4><span id="label4" class="badge w-100">Unknown</span></h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Alarm status
+                        </div>
+                        <h4><span id="label5" class="badge w-100">Unknown</span></h4>
+                    </div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="card-body">
+                        <div class="card-title">
+                            Noise detector
+                        </div>
+                        <h4><span id="label6" class="badge w-100">Unknown</span></h4>
+                    </div>
+                </div>
+            </div>
+        </div></h5>
+        <div class="row">
+            <div class="col-12 col-md-5 mb-0">
+              <table class="table table-dark table-bordered table-sm mt-0">
+                  <tbody>
+                    <tr>
+
+                        <td class="align-middle" style="height: 68px; margin: auto; text-align:center"><button type="button" onclick="onButton('1')" style="padding: 12px 12px"  class="btn btn-outline-success">Led - 1</button></td>
+                        <td class="align-middle" style="height: 68px; margin: auto; text-align:center"><button type="button" onclick="onButton('2')" style="padding: 12px 12px"  class="btn btn-outline-success">Led - 2</button></td>
+                        <th class="align-middle" style="height: 68px; margin: auto; text-align:center"><button type="button" onclick="onButton('3')" style="padding: 12px 12px"  class="btn btn-outline-success">Led - 3</button></td>
+                        <th class="align-middle" style="height: 68px; margin: auto; text-align:center"><button type="button" onclick="onButton('0')" style="padding: 12px 12px"  class="btn btn-outline-warning">Led OFF</button></th>
+                    <tr>
+                        <th class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('beep')" style="padding: 12px 8px"  class="btn btn-outline-danger">RING Alarm</button></td>
+                        <td class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('on')" style="padding: 12px 8px"  class="btn btn-outline-primary">Alarm: ON</button></td>
+                        <td class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('off')" style="padding: 12px 8px"  class="btn btn-outline-primary">Alarm: OFF</button></td>
+                    </tr>
+                  </tbody>
+              </table>
+            </div>
+            <div class="col-12 col-md-7 mb-0">
+              <table class="table table-dark table-bordered  table-striped mt-0">
+                  <tbody>
+                        <tr>
+                            <th>Temperature 1 last reading:</th>
+                            <td><small id="temperature1">(no value received)</small></td>
+                        </tr>
+                        <tr>
+                            <th>Temperature 2 last reading:</th>
+                            <td><small id="temperature2">(no value received)</small></td>
+                        </tr>
+                        <tr>
+                            <th>Water sensor last reading:</th>
+                            <td><small id="water">(no value received)</small></td>
+                        </tr>
+                        <tr>
+                            <th>Last site activity:</th>
+                            <td><small id="activity">(unknown)</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table table-dark table-bordered table-sm table-striped mt-0">
+                    <tbody>
+                        <tr>
+                            <th>Last MQTT message</th>
+                            <td><small id="message">no message recieved</small></td>
+                        </tr>
+                        <tr>
+                            <th>Previous last MQTT message</th>
+                            <td><small id="previousmsg">no message recieved</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+		    </div>
+
+    </div>
+</body>
+</html>
