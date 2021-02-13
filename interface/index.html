@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 
@@ -17,12 +18,16 @@
         <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">Design Laboratory Smarthome Access</a>
     </nav>
     <div class="container-fluid">
-        <div id="status" class="alert">
+        <div id="status" class="alert alert-dark">
             <small>Loading...</small>
         </div>
-        <div id="welcome" class="alert alert-info">
-            Hello world!
+        <div id="walert" class="alert alert-info alert-dismissible fade show" role="walert">
+            <a id="welcome">Hello world!</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
         </div>
+
         <h5><div class="card mb-3" style="color: white; background: #333c42">
             <div class="row">
                 <div class="col-6 col-md-2">

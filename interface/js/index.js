@@ -5,6 +5,8 @@ let reconnectTimeout = 3000;
 let mqtt;
 let previousMsg;
 
+
+
 function MQTTconnect() {
     mqtt = new Paho.MQTT.Client(host, port, '/ws', "mqtt_panel" + parseInt(Math.random() * 1000, 10));
     let options = {
@@ -142,6 +144,8 @@ function onMessageArrived(message) {
             break;
         case 'welcome':
             $('#welcome').html(payload);
+            $('.alert').removeClass('hidden');
+            $('.alert').show();
             break;
         case 'activity':
             $('#activity').html(payload);
@@ -154,4 +158,11 @@ function onMessageArrived(message) {
 
 $(document).ready(function () {
     MQTTconnect();
+});
+$(function () {
+    $('.alert').on('close.bs.alert', function (e) {
+        e.preventDefault();
+        $('#walert').addClass('hidden');
+        $('#walert').hide()
+    });
 });
