@@ -10,6 +10,8 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.2/mqttws31.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
 </head>
 
 
@@ -95,9 +97,19 @@
                         <th class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('beep')" style="padding: 12px 8px"  class="btn btn-outline-danger">RING Alarm</button></td>
                         <td class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('on')" style="padding: 12px 8px"  class="btn btn-outline-primary">Alarm: ON</button></td>
                         <td class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('off')" style="padding: 12px 8px"  class="btn btn-outline-primary">Alarm: OFF</button></td>
+                        <th class="align-middle" style="height: 68px; text-align:center"><button type="button" onclick="onButton('form')" style="padding: 12px 7px"  class="btn btn-outline-info">Submit Form</button></th>
                     </tr>
                   </tbody>
               </table>
+              <div class="col-12 col-md-13 mb-2 pb-2">
+                  <form>
+                    <div class="form-row">
+                      <div class="col-12">
+                        <input autocomplete="off"type="text" id="wform" role="wform" class="btn-outline-info form-control" placeholder="Welcome message" style="color: #27b2c8; background: #3e444a" >
+                      </div>
+                    </div>
+                  </form>
+              </div>
             </div>
             <div class="col-12 col-md-7 mb-0">
               <table class="table table-dark table-bordered  table-striped mt-0">
@@ -132,7 +144,6 @@
                         </tr>
                     </tbody>
                 </table>
-
 		    </div>
 
     </div>

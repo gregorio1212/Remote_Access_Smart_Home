@@ -5,8 +5,6 @@ let reconnectTimeout = 3000;
 let mqtt;
 let previousMsg;
 
-
-
 function MQTTconnect() {
     mqtt = new Paho.MQTT.Client(host, port, '/ws', "mqtt_panel" + parseInt(Math.random() * 1000, 10));
     let options = {
@@ -25,19 +23,35 @@ function MQTTconnect() {
 
     mqtt.onConnectionLost = onConnectionLost;
     mqtt.onMessageArrived = onMessageArrived;
+
+    $('#walert').addClass('hidden');
+    $('#walert').hide()
+
     mqtt.connect(options);
 };
 
 function onButton(but) {
-    let message = new Paho.MQTT.Message(but);
+    let message
     let date = new Date();
-    if (but == "beep" || but == "on" || but == "off")
-        message.destinationName = "smarthome/cmd/alarm";
-    else
-        message.destinationName = "smarthome/cmd/led";
-
-    mqtt.send(message);
-
+    if (but != 'form'){
+      message = new Paho.MQTT.Message(but);
+      if (but == "beep" || but == "on" || but == "off")
+          message.destinationName = "smarthome/cmd/alarm";
+      else
+          message.destinationName = "smarthome/cmd/led";
+      mqtt.send(message);
+    }
+    else {
+      if ($('#wform').val() == '') {
+          $('#walert').addClass('hidden');
+          $('#walert').hide()
+      }
+      message = new Paho.MQTT.Message($('#wform').val());
+      message.destinationName = "smarthome/info/welcome";
+      message.retained = true;
+      mqtt.send(message);
+      $('#wform').val('');
+    }
     message = new Paho.MQTT.Message(date.toLocaleString());
     message.destinationName = "smarthome/info/activity";
     message.retained = true;
@@ -143,9 +157,15 @@ function onMessageArrived(message) {
             $('#water').html('Sensor value: ' + payload);
             break;
         case 'welcome':
-            $('#welcome').html(payload);
-            $('.alert').removeClass('hidden');
-            $('.alert').show();
+            if (payload == '') {
+                $('#walert').addClass('hidden');
+                $('#walert').hide()
+            }
+            else {
+              $('#welcome').html(payload);
+              $('#walert').removeClass('hidden');
+              $('#walert').show();
+            }
             break;
         case 'activity':
             $('#activity').html(payload);
@@ -156,11 +176,25 @@ function onMessageArrived(message) {
     }
 };
 
+
+$(function () {
+  $('#wform').on('keypress', function(e){
+    if (e.keyCode == 13){
+      e.preventDefault();
+      onButton('form');
+      $('#wform').val('');
+    }
+
+  });
+});
+
+
 $(document).ready(function () {
     MQTTconnect();
 });
 $(function () {
     $('.alert').on('close.bs.alert', function (e) {
+        console.log('closed');
         e.preventDefault();
         $('#walert').addClass('hidden');
         $('#walert').hide()
