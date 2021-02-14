@@ -8,18 +8,13 @@ void gpio_callback(){
 
 int main(void){
 	stdio_init_all();
-
+// PIN25 = inchip LED; PIN5 = Beep; PIN2 = sound detector sensor; PIN3 = alarm setting; PIN4 = Bepp setting
 	gpio_init_mask((1<<5) + (1<<25) + (1<<2) + (1<<3) +(1<<4));
 	//OUTPUT Pins
-	//gpio_init(25);
 	gpio_set_dir(25, true);//true equals output
-	//gpio_init(5); //beep output
 	gpio_set_dir(5, true);//true equals output
 
 	//INPUT pins
-	//gpio_init(2); //sound detector
-	//gpio_init(3); //alarm interr
-	//gpio_init(4); //beep interr
 	gpio_pull_down(2); //const DOWN
 	gpio_pull_down(3);
 	gpio_pull_down(4);
