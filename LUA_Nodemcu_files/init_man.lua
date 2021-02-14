@@ -1,4 +1,6 @@
 --[[
+init_man.lua
+
 Actual init file, but named something other than init.lua in order to 
 manually test and debug initialization code.
 --]]
@@ -84,7 +86,6 @@ local wifi_counter = 0
 timer:alarm(1000, tmr.ALARM_AUTO, function()
 	if wifi.sta.getip() == nil then
 		print("Connecting to AP...\n")
-		
 		-- Rotate through RGB colors while waiting
 		wifi_counter = wifi_counter + 1;
 		rgb_solid(wifi_counter % 3)
