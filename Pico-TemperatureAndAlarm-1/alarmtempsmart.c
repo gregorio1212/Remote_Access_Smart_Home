@@ -8,26 +8,23 @@ void gpio_callback(){
 
 int main(void){
 	stdio_init_all();
-// PIN25 = inchip LED; PIN5 = Beep; PIN2 = sound detector sensor; PIN3 = alarm setting; PIN4 = Bepp setting
+	// PIN25 = inchip LED; PIN5 = Beep; PIN2 = sound detector sensor; PIN3 = alarm setting; PIN4 = Bepp setting
 	gpio_init_mask((1<<5) + (1<<25) + (1<<2) + (1<<3) +(1<<4));
-	//OUTPUT Pins
-	gpio_set_dir(25, true);//true equals output
-	gpio_set_dir(5, true);//true equals output
+	gpio_set_dir_masked((1<<5) + (1<<25) + (1<<2) + (1<<3) +(1<<4),(1<<5) + (1<<25) + (0<<2) + (0<<3) +(0<<4));
 
-	//INPUT pins
+	//Setting Pull-down for input pins
 	gpio_pull_down(2); //const DOWN
 	gpio_pull_down(3);
 	gpio_pull_down(4);
-	gpio_set_dir(2, false); //sets as input
-	gpio_set_dir(3, false);
-	gpio_set_dir(4, false);
+	//Enabling input pins
 	gpio_set_input_enabled(3, true);
 	gpio_set_input_enabled(4, true);
 
 	//Configure ADC
 	adc_init();
 	adc_set_temp_sensor_enabled(true);
-	adc_select_input(4);//4 = inboard temperature sensor
+	//4 = inboard temperature sensor
+	adc_select_input(4);
 	uint16_t raw;
 	const float conversion = 3.3f / (1<<12);
 	float voltage;
@@ -37,7 +34,7 @@ int main(void){
 		sleep_ms(1000);
 		//if beep mqtt is detected, then ring the alarm
 		if(gpio_get(4)){
-			sleep_ms(400);
+			sleep_ms(800);	//this delays serves as a double check if beep was really activated
 			if(gpio_get(4)){
 				gpio_put(5, true);
 				gpio_put(25, false);
