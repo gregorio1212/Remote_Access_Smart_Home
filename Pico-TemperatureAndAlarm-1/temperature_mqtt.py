@@ -25,7 +25,7 @@ client.will_set("smarthome/info/device2","offline",qos=0, retain=True)
 client.connect(MQTT_HOST, MQTT_PORT, 60)
 client.loop_start()
 
-ser = serial.Serial('/dev/serial0', 115200, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 115200, timeout=1)
 
 client.publish("smarthome/info/device2",payload="online",qos=0,retain=True)
 
