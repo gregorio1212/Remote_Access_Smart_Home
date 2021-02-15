@@ -18,21 +18,21 @@ function safety(m, pl)
     gpio.mode(PIN_BEEP, gpio.OUTPUT)
     gpio.mode(PIN_ALARM, gpio.OUTPUT)
     if pl == "beep" then
-        m:publish("smarthome/info/alarm", "beep", 0, 0,
+        m:publish("smarthome/info/alarm", "beep", 0, 1,
             function(m) print("RINGING ALARM") end)
         gpio.write(PIN_ALARM, gpio.LOW)
         gpio.write(PIN_BEEP, gpio.HIGH)
     end
 
     if pl == "off" then
-        m:publish("smarthome/info/alarm", "off", 0, 0,
+        m:publish("smarthome/info/alarm", "off", 0, 1,
             function(m) print("ALARM TURNING OFF") end)
         gpio.write(PIN_ALARM, gpio.LOW)
         gpio.write(PIN_BEEP, gpio.LOW)
     end
         
     if pl == "on" then
-        m:publish("smarthome/info/alarm", "on", 0, 0,
+        m:publish("smarthome/info/alarm", "on", 0, 1,
             function(m) print("SETTING THE ALARM") end)
         gpio.write(PIN_ALARM, gpio.HIGH)
         gpio.write(PIN_BEEP, gpio.LOW)
@@ -49,7 +49,7 @@ function animate(m, pl)
 	-- Option 0 turns everything off
 	if pl == "0" then
 		-- Confirm LED being turned off to serial terminal and MQTT broker
-		m:publish("smarthome/info/ledstate", "0", 0, 0,
+		m:publish("smarthome/info/ledstate", "0", 0, 1,
 			function(m) print("LED OFF") end) --/mcu
 		
 		-- Reset the counter and stop the timer from another function
@@ -64,7 +64,7 @@ function animate(m, pl)
 	-- RBG Mode
 	elseif pl == "1" then
 		-- Confirm LED in RGB mode to serial terminal and MQTT broker
-		m:publish("smarthome/info/ledstate", "1", 0, 0,
+		m:publish("smarthome/info/ledstate", "1", 0, 1,
 			function(m) print("RGB Mode") end) --/mcu
 		
 		-- Just stop the timer from another loop
@@ -80,7 +80,7 @@ function animate(m, pl)
 	-- Pick a "random" color and make it breathe mode
 	elseif pl == "2" then
 		-- Confirm LED in random breathe mode to serial terminal and MQTT broker
-		m:publish("smarthome/info/ledstate", "2", 0, 0,
+		m:publish("smarthome/info/ledstate", "2", 0, 1,
 			function(m) print("Random-Breathe Mode") end) --/mcu
 		
 		-- Reset the counter and stop the timer from another function
@@ -123,7 +123,7 @@ function animate(m, pl)
 	-- Lots of random blinking craziness
 	elseif pl == "3" then
 		-- Confirm LED in disco mode to serial terminal and MQTT broker
-		m:publish("smarthome/info/ledstate", "3", 0, 0,
+		m:publish("smarthome/info/ledstate", "3", 0, 1,
 			function(m) print("Disco Mode") end) --/mcu
 		
 		-- Reset the counter and stop the timer from another function
@@ -158,7 +158,7 @@ m = mqtt.Client(MQTT_CLIENTID, 60, "brazil", "inpoland2021")
 
 
 -- Set up Last Will and Testament (optional)
--- Broker will publish a message with qos = 0, retain = 0, data = "offline"
+-- Broker will publish a message with qos = 0, retain = 1, data = "offline"
 -- to topic "/lwt" if client don't send keepalive packet
 m:lwt("smarthome/info/device1", "offline", 0, 1)
 
@@ -169,7 +169,7 @@ m:on("connect", function(m)
 	print ("\n\n", MQTT_CLIENTID, " connected to MQTT host ", MQTT_HOST,
 		" on port ", MQTT_PORT, "\n\n")
 
-    m:publish("smarthome/info/device1", "online", 0, 0,
+    m:publish("smarthome/info/device1", "online", 0, 1,
             function(m) print("Device 1 is online") end)
 
 	-- Subscribe to the topic where the ESP8266 will get commands from
