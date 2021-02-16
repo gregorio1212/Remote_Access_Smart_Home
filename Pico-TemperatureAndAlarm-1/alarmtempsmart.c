@@ -34,7 +34,7 @@ int main(void){
 		sleep_ms(1000);
 		//if beep mqtt is detected, then ring the alarm
 		if(gpio_get(4)){
-			sleep_ms(800);	//this delay serves as a double check if beep was really activated
+			sleep_ms(1000);	//this delay serves as a double check if beep was really activated
 			if(gpio_get(4)){
 				gpio_put(5, true);
 				gpio_put(25, false);
