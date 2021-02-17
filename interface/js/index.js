@@ -113,7 +113,7 @@ function onMessageArrived(message) {
               break;
           case 'alarm':
               switch(payload) {
-                  case 'triggered':
+                  case 'beep':
                       $('#label5').text('TRIGGERED!!!');
                       $('#label5').removeClass('badge-secondary badge-warning').addClass('badge-danger');
                       break;
