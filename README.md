@@ -3,12 +3,19 @@ In this project, we have built a smart home prototype and controlled it using a 
 that works as a remote access to the smart home. The hardware used to perform this project is:
 
 1 - (Michał)Raspberry pi 3B+ (Apache Webserver/MQTT client   AND   MQTT broker);
+
 2 - (Gregório)Raspberry pi 3B+ (MQTT client);
+
 3 - (Michał)Raspberry pi pico (sends data to (Michał)Raspberry pi 3B+);
+
 4 - (Gregório)Raspberry pico (receives commands from Nodemcu and sends data to (Gregório)Raspberry pi 3B+);
+
 5 - NodeMCU board - ESP-12E (MQTT client);
+
 6 - Sound detector module (output to (Gregório)Pico);
+
 7 - Buzzer (controlled by (Gregório)Pico);
+
 8 - RGB LED (controlled by NodeMCU board);
 
 Some other useful information regarding software part of the project:
